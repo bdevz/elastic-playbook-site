@@ -1,23 +1,24 @@
 import { getCollection } from "astro:content";
-import { absoluteUrl, xmlEscape } from "../lib/utils";
+import { absoluteUrl, bookPath, xmlEscape } from "../lib/utils";
 
 export async function GET() {
   const articles = await getCollection("articles");
   const resources = await getCollection("resources");
 
   const staticPages = [
-    "/elastic-playbook/",
-    "/elastic-playbook/book",
-    "/elastic-playbook/articles",
-    "/elastic-playbook/resources",
-    "/elastic-playbook/workshops",
-    "/elastic-playbook/about",
-    "/elastic-playbook/rss.xml",
+    "/",
+    bookPath("/"),
+    bookPath("/book"),
+    bookPath("/articles"),
+    bookPath("/resources"),
+    bookPath("/workshops"),
+    bookPath("/about"),
+    "/rss.xml",
   ];
 
   const dynamicPages = [
-    ...articles.map((entry) => `/elastic-playbook/articles/${entry.id}`),
-    ...resources.map((entry) => `/elastic-playbook/resources/${entry.id}`),
+    ...articles.map((entry) => bookPath(`/articles/${entry.id}`)),
+    ...resources.map((entry) => bookPath(`/resources/${entry.id}`)),
   ];
 
   const urls = [...staticPages, ...dynamicPages]

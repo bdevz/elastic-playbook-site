@@ -1,13 +1,9 @@
-export function withBase(path: string): string {
-  const base = import.meta.env.BASE_URL.endsWith("/")
-    ? import.meta.env.BASE_URL.slice(0, -1)
-    : import.meta.env.BASE_URL;
-
+export function bookPath(path = "/"): string {
   if (path === "/") {
-    return `${base}/`;
+    return "/elastic-playbook";
   }
 
-  return `${base}${path}`;
+  return `/elastic-playbook${path}`;
 }
 
 export function formatDate(dateString: string): string {

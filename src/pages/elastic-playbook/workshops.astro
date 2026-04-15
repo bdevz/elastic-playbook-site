@@ -1,6 +1,7 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import SectionHeader from "../components/SectionHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import { bookMeta } from "../../lib/site";
 
 const workshops = [
   {
@@ -22,7 +23,7 @@ const workshops = [
 ---
 
 <BaseLayout
-  title="Workshops | The Elastic Playbook"
+  title={`Workshops | ${bookMeta.title}`}
   description="Workshops and advisory support for teams using Elastic across search, observability, and security in AI-era systems."
 >
   <section class="hero">

@@ -1,6 +1,7 @@
 # The Elastic Playbook site
 
-This is the companion site for *The Elastic Playbook*.
+This is the root site for `bharats.com`, with *The Elastic Playbook* living under
+`/elastic-playbook`.
 
 ## Stack
 
@@ -32,26 +33,9 @@ Recommended Vercel settings when this `site/` directory is its own repository:
 
 If you later keep this inside a larger monorepo, set the Vercel root directory to `site` instead.
 
-This repo also includes a `vercel.json` rewrite rule that strips the `/elastic-playbook`
-prefix before requests hit Astro's built routes.
+## URL structure
 
-## Base path
-
-This site is configured with:
-
-- `site`: `https://bharats.com`
-- `base`: `/elastic-playbook`
-
-That means all internal routes are generated for:
-
-- `https://bharats.com/elastic-playbook`
-
-## Important deployment note
-
-Vercel projects map cleanly to domains and subdomains. Path-based mounting like
-`bharats.com/elastic-playbook` usually means one of these must be true:
-
-1. The root `bharats.com` site is also controlled by Vercel and rewrites traffic to this app.
-2. The current root host can reverse-proxy or rewrite `/elastic-playbook` to this deployment.
-
-If neither is true, a subdomain such as `elastic-playbook.bharats.com` is the simpler fallback.
+- `https://bharats.com/` is the personal homepage
+- `https://bharats.com/elastic-playbook` is the book companion
+- `https://bharats.com/elastic-playbook/articles/...` serves the flagship posts
+- `https://bharats.com/elastic-playbook/resources/...` serves the checklists

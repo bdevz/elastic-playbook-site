@@ -2,43 +2,64 @@
 import { getCollection } from "astro:content";
 import ArticleCard from "../components/ArticleCard.astro";
 import CTABox from "../components/CTABox.astro";
-import ResourceCard from "../components/ResourceCard.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { homeHighlights, siteMeta } from "../lib/site";
-import { sortByPublishedDesc, withBase } from "../lib/utils";
+import { bookMeta, siteMeta } from "../lib/site";
+import { bookPath, sortByPublishedDesc } from "../lib/utils";
 
 const articles = sortByPublishedDesc(
   await getCollection("articles", ({ data }) => data.featured),
-).slice(0, 3);
-const resources = sortByPublishedDesc(
-  await getCollection("resources", ({ data }) => data.featured),
 ).slice(0, 2);
+
+const focusAreas = [
+  "Elastic in the AI stack: retrieval, context, observability, and security",
+  "Operator-grade guidance for teams shipping AI systems into production",
+  "Workshops and architecture reviews that turn writing into rollout decisions",
+];
+
+const proofPoints = [
+  {
+    title: "What I write",
+    copy:
+      "Long-form technical writing aimed at enterprise teams making architecture decisions, not chasing demos.",
+  },
+  {
+    title: "What I help with",
+    copy:
+      "Architecture reviews, agentic-search design, LLM observability, and safer workflow boundaries around Elastic plus AI.",
+  },
+  {
+    title: "What this site is",
+    copy:
+      "A simple home for my work, with The Elastic Playbook as the flagship publishing and consulting surface.",
+  },
+];
 ---
 
 <BaseLayout
-  title={`${siteMeta.title} | Context, observability, and security for agentic AI`}
+  title={`${siteMeta.title} | Elastic, AI, and enterprise platform work`}
   description={siteMeta.description}
 >
   <section class="hero">
     <div>
-      <span class="hero__eyebrow">Canonical home</span>
-      <h1>The Elastic book companion that actually earns trust</h1>
+      <span class="hero__eyebrow">Elastic, AI, and platform systems</span>
+      <h1>Bharat writes and works where search, observability, and AI architecture meet</h1>
     </div>
 
     <p>
-      This is the canonical home for the book, the flagship articles, the
-      checklists, and the workshop path around Elastic as the context,
-      observability, and security layer for agentic AI.
+      This is the home site for my writing, workshop offers, and architecture
+      work. The main project here is <em>{bookMeta.title}</em>, a book and
+      companion site about using Elastic as the context, observability, and
+      security layer for agentic AI.
     </p>
 
     <div class="button-row">
-      <a class="button" href={withBase("/book")}>Explore the book</a>
-      <a class="button-secondary" href={withBase("/articles")}>Read the articles</a>
+      <a class="button" href={bookPath("/")}>Explore the playbook</a>
+      <a class="button-secondary" href={bookPath("/workshops")}>See workshop options</a>
     </div>
 
     <ul class="feature-list">
-      {homeHighlights.map((item) => (
+      {focusAreas.map((item) => (
         <li>{item}</li>
       ))}
     </ul>
@@ -46,9 +67,26 @@ const resources = sortByPublishedDesc(
 
   <section class="section">
     <SectionHeader
-      eyebrow="Flagship reading"
-      title="Start with the sharpest current ideas"
-      copy="These are the canonical articles you can share, quote, rank, and build the consulting funnel around."
+      eyebrow="Profile"
+      title="A practitioner-first home page"
+      copy="The root site stays intentionally simple. It should tell people what I do, what the flagship work is, and where to go next."
+    />
+
+    <div class="grid">
+      {proofPoints.map((item) => (
+        <article class="card">
+          <h3>{item.title}</h3>
+          <p>{item.copy}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeader
+      eyebrow="Selected writing"
+      title="Start with the public proof layer"
+      copy="These are the first two flagship articles from The Elastic Playbook. They do the heavy lifting for search discovery, trust, and consulting relevance."
     />
 
     <div class="grid">
@@ -59,37 +97,22 @@ const resources = sortByPublishedDesc(
   </section>
 
   <section class="section">
-    <SectionHeader
-      eyebrow="Resources"
-      title="Useful assets, not brochure filler"
-      copy="Every article should hand the reader something practical. These are the first two checklist pages."
-    />
-
-    <div class="grid">
-      {resources.map((resource) => (
-        <ResourceCard resource={resource} />
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
     <div class="grid">
       <div class="panel" style="padding: 1.4rem;">
-        <span class="section__eyebrow">Book thesis</span>
-        <h2>Elastic is not just the search layer anymore.</h2>
+        <span class="section__eyebrow">Flagship project</span>
+        <h2>{bookMeta.title}</h2>
         <p>
-          The core argument of the book is that Elastic in 2026 is becoming the
-          context, retrieval, observability, and security substrate for agentic
-          AI. The site exists to prove that thesis in public, one article and
-          one resource at a time.
+          The book argues that Elastic in 2026 is no longer just search
+          infrastructure. It is becoming the context, retrieval,
+          observability, and security substrate for agentic AI.
         </p>
-        <a href={withBase("/book")}>See the book page</a>
+        <a href={bookPath("/")}>See the playbook</a>
       </div>
 
       <CTABox
-        title="Use the site like a field guide"
-        copy="Read the flagship article, download the checklist, then decide whether your team needs a workshop, architecture review, or just the next chapter."
-        label="See workshop options"
+        title="Turn the writing into a working session"
+        copy="If the architecture problem is real and time-sensitive, the playbook becomes the starting point for a workshop or platform review."
+        label="Open the workshops page"
         href="/workshops"
       />
     </div>

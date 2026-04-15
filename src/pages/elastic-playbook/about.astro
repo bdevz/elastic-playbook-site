@@ -1,6 +1,7 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import SectionHeader from "../components/SectionHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import { bookMeta } from "../../lib/site";
 
 const bullets = [
   "Writing from the perspective of architecture, operations, and governance rather than product recap",
@@ -10,8 +11,8 @@ const bullets = [
 ---
 
 <BaseLayout
-  title="About | The Elastic Playbook"
-  description="About the author and the purpose behind The Elastic Playbook."
+  title={`About | ${bookMeta.title}`}
+  description={`About the author and the purpose behind ${bookMeta.title}.`}
 >
   <section class="hero">
     <div>

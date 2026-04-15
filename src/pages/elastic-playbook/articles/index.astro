@@ -1,15 +1,16 @@
 ---
 import { getCollection } from "astro:content";
-import ArticleCard from "../../components/ArticleCard.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SectionHeader from "../../components/SectionHeader.astro";
-import { sortByPublishedDesc } from "../../lib/utils";
+import ArticleCard from "../../../components/ArticleCard.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SectionHeader from "../../../components/SectionHeader.astro";
+import { bookMeta } from "../../../lib/site";
+import { sortByPublishedDesc } from "../../../lib/utils";
 
 const articles = sortByPublishedDesc(await getCollection("articles"));
 ---
 
 <BaseLayout
-  title="Articles | The Elastic Playbook"
+  title={`Articles | ${bookMeta.title}`}
   description="Canonical long-form articles about Elastic, agentic AI, observability, search, and safe production design."
 >
   <section class="section">

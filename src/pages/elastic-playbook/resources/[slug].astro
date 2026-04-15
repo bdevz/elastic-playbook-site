@@ -1,8 +1,9 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
-import CTABox from "../../components/CTABox.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatDate } from "../../lib/utils";
+import CTABox from "../../../components/CTABox.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { bookMeta } from "../../../lib/site";
+import { formatDate } from "../../../lib/utils";
 
 export async function getStaticPaths() {
   const resources = await getCollection("resources");
@@ -17,7 +18,7 @@ const { entry } = Astro.props as { entry: CollectionEntry<"resources"> };
 const { Content } = await render(entry);
 ---
 
-<BaseLayout title={`${entry.data.title} | The Elastic Playbook`} description={entry.data.summary}>
+<BaseLayout title={`${entry.data.title} | ${bookMeta.title}`} description={entry.data.summary}>
   <article class="resource-shell">
     <header class="resource-header">
       <p class="meta">

@@ -1,7 +1,7 @@
 import { absoluteUrl } from "../lib/utils";
 
 export async function GET() {
-  const body = `User-agent: *\nAllow: /\nSitemap: ${absoluteUrl("/elastic-playbook/sitemap.xml")}\n`;
+  const body = `User-agent: *\nAllow: /\nSitemap: ${absoluteUrl("/sitemap.xml")}\n`;
 
   return new Response(body, {
     headers: {

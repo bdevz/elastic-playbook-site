@@ -1,11 +1,11 @@
 import { getCollection } from "astro:content";
-import { absoluteUrl, sortByPublishedDesc, xmlEscape } from "../lib/utils";
+import { absoluteUrl, bookPath, sortByPublishedDesc, xmlEscape } from "../lib/utils";
 
 export async function GET() {
   const articles = sortByPublishedDesc(await getCollection("articles"));
   const items = articles
     .map((entry) => {
-      const link = absoluteUrl(`/elastic-playbook/articles/${entry.id}`);
+      const link = absoluteUrl(bookPath(`/articles/${entry.id}`));
       return `
         <item>
           <title>${xmlEscape(entry.data.title)}</title>
@@ -22,7 +22,7 @@ export async function GET() {
   <rss version="2.0">
     <channel>
       <title>The Elastic Playbook</title>
-      <link>${xmlEscape(absoluteUrl("/elastic-playbook/"))}</link>
+      <link>${xmlEscape(absoluteUrl(bookPath("/")))}</link>
       <description>${xmlEscape("Canonical articles and resources for The Elastic Playbook.")}</description>
       ${items}
     </channel>

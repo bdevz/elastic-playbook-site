@@ -1,5 +1,5 @@
 ---
-import { withBase } from "../lib/utils";
+import { bookPath } from "../lib/utils";
 
 interface Props {
   title: string;
@@ -14,5 +14,5 @@ const { title, copy, label, href } = Astro.props as Props;
 <aside class="cta-box">
   <h3>{title}</h3>
   <p>{copy}</p>
-  <a class="button" href={withBase(href)}>{label}</a>
+  <a class="button" href={bookPath(href)}>{label}</a>
 </aside>

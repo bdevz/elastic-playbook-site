@@ -1,40 +1,40 @@
 ---
-import { withBase } from "../lib/utils";
+import { bookPath } from "../lib/utils";
 ---
 
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="site-footer__grid">
       <div>
+        <h3>Bharat</h3>
+        <p class="meta">
+          Writing, workshops, and architecture guidance around Elastic, AI,
+          search, observability, and production-grade systems.
+        </p>
+      </div>
+
+      <div>
         <h3>The Elastic Playbook</h3>
         <p class="meta">
-          Canonical home for the book, the articles, the checklists, and the
-          workshop path around Elastic plus AI.
+          The canonical home for the book, the flagship articles, and the
+          checklists that support workshop and consulting conversations.
         </p>
+        <a href={bookPath("/articles")}>Browse articles</a>
       </div>
 
       <div>
-        <h3>Read next</h3>
+        <h3>Current focus</h3>
         <p class="meta">
-          Start with the flagship articles, then use the resources pages as the
-          practical follow-through.
+          Helping teams make better decisions about retrieval, observability,
+          AI workflows, and safe production boundaries.
         </p>
-        <a href={withBase("/articles")}>Browse articles</a>
-      </div>
-
-      <div>
-        <h3>Work with me</h3>
-        <p class="meta">
-          Workshops and advisory support for teams building search, observability,
-          and security workflows around AI.
-        </p>
-        <a href={withBase("/workshops")}>See workshop options</a>
+        <a href={bookPath("/workshops")}>See workshop options</a>
       </div>
     </div>
 
     <p class="meta">
-      Built for `bharats.com/elastic-playbook`. If the root domain is hosted
-      elsewhere, use a rewrite or reverse-proxy to mount this app at the path.
+      `bharats.com` is the root site. `bharats.com/elastic-playbook` is the
+      book companion and publishing surface.
     </p>
   </div>
 </footer>
