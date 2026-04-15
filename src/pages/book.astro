@@ -1,0 +1,106 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CTABox from "../components/CTABox.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import { withBase } from "../lib/utils";
+
+const chapterClusters = [
+  "The platform shift: Elastic as the context layer for agentic AI",
+  "Search reimagined: retrieval, reranking, agentic search, and production RAG",
+  "Observability for the AI era: prompts, traces, tool calls, cost, and reliability",
+  "Security meets AI: guardrails, governance, and security workflows",
+  "Putting it together: reference architectures and what to adopt now",
+];
+---
+
+<BaseLayout
+  title="The Elastic Playbook | Book overview"
+  description="The field guide for enterprise architects using Elastic as the context, observability, and security layer for agentic AI."
+>
+  <section class="hero">
+    <div>
+      <span class="hero__eyebrow">Book overview</span>
+      <h1>The field guide for turning Elastic into the AI context layer</h1>
+    </div>
+
+    <p>
+      This book is for enterprise platform architects, principal engineers,
+      search leads, observability leads, and security architects who already
+      have Elastic in the stack and now need to make AI-era architecture
+      decisions.
+    </p>
+
+    <div class="button-row">
+      <a class="button" href={withBase("/articles")}>Read a flagship article</a>
+      <a class="button-secondary" href={withBase("/workshops")}>See workshop paths</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeader
+      eyebrow="Core promise"
+      title="A read-once, apply-repeatedly technical book"
+      copy="The book is meant to help readers understand Elastic’s 2026 platform story, choose the right patterns, and defend those choices in a real enterprise environment."
+    />
+
+    <div class="grid">
+      <div class="card">
+        <h3>Who it is for</h3>
+        <p>
+          Enterprise platform architects and principal engineers who need to
+          wire Elastic into real AI workflows without losing observability,
+          governance, or architectural clarity.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>What it does</h3>
+        <p>
+          It connects retrieval, tools, memory, observability, and security into
+          one operating model, then walks through the patterns that survive
+          production review.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>How to use it</h3>
+        <p>
+          First as a thesis and architecture guide. Then as a re-entry reference
+          before design reviews, platform decisions, workshops, or implementations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeader
+      eyebrow="Chapter clusters"
+      title="What the book covers"
+      copy="Not a generic Stack reference. A platform and operating-model book for Elastic in the AI era."
+    />
+
+    <ol class="lede-list">
+      {chapterClusters.map((cluster) => (
+        <li>{cluster}</li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="grid">
+      <CTABox
+        title="Follow the build in public"
+        copy="The flagship articles and checklists are the public proof layer for the book. Read those first if you want to see the argument sharpen in real time."
+        label="Browse articles"
+        href="/articles"
+      />
+
+      <CTABox
+        title="Use this as a workshop precursor"
+        copy="The strongest use of the book is not passive reading. It is using the ideas to pressure-test a real architecture, rollout, or platform decision."
+        label="See workshop options"
+        href="/workshops"
+      />
+    </div>
+  </section>
+</BaseLayout>

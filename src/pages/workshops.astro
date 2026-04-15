@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+const workshops = [
+  {
+    title: "Elastic + AI architecture review",
+    copy:
+      "For teams deciding where Elastic should sit in the AI stack, and which boundaries belong in the platform versus the application.",
+  },
+  {
+    title: "Agentic search design workshop",
+    copy:
+      "For teams designing retrieval, tool use, refusal behavior, and review boundaries for search-first agent workflows.",
+  },
+  {
+    title: "LLM observability and operator review",
+    copy:
+      "For teams that need prompt lineage, traceability, cost visibility, and a replayable incident path before scaling production AI workflows.",
+  },
+];
+---
+
+<BaseLayout
+  title="Workshops | The Elastic Playbook"
+  description="Workshops and advisory support for teams using Elastic across search, observability, and security in AI-era systems."
+>
+  <section class="hero">
+    <div>
+      <span class="hero__eyebrow">Workshops and advisory</span>
+      <h1>Use the book as the front door to a real working session</h1>
+    </div>
+
+    <p>
+      These workshops are meant for teams with a real architecture problem, not
+      for generic inspiration. The goal is to leave with a cleaner operating
+      model, a stronger boundary, and a more defensible rollout path.
+    </p>
+  </section>
+
+  <section class="section">
+    <SectionHeader
+      eyebrow="Formats"
+      title="Three useful starting points"
+      copy="Each option maps directly to the strongest chapter and article clusters."
+    />
+
+    <div class="grid">
+      {workshops.map((workshop) => (
+        <article class="card">
+          <h3>{workshop.title}</h3>
+          <p>{workshop.copy}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-box">
+      <h3>Inquiry path</h3>
+      <p>
+        Start with the article or checklist that most closely matches your
+        problem. If the issue is real and time-sensitive, the workshop becomes a
+        structured shortcut rather than a sales process.
+      </p>
+      <p class="meta">
+        For now, route inquiries through your preferred email or intake page on
+        bharats.com.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

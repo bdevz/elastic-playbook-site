@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import ResourceCard from "../../components/ResourceCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import { sortByPublishedDesc } from "../../lib/utils";
+
+const resources = sortByPublishedDesc(await getCollection("resources"));
+---
+
+<BaseLayout
+  title="Resources | The Elastic Playbook"
+  description="Checklists and practical resources that support the book, the articles, and the consulting path."
+>
+  <section class="section">
+    <SectionHeader
+      eyebrow="Resources"
+      title="Checklists, not fluff"
+      copy="These pages are meant to help a team review one architecture, one trace path, or one rollout decision without waiting for the full book."
+    />
+
+    <div class="grid">
+      {resources.map((resource) => (
+        <ResourceCard resource={resource} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

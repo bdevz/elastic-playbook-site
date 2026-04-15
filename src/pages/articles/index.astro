@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import ArticleCard from "../../components/ArticleCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import { sortByPublishedDesc } from "../../lib/utils";
+
+const articles = sortByPublishedDesc(await getCollection("articles"));
+---
+
+<BaseLayout
+  title="Articles | The Elastic Playbook"
+  description="Canonical long-form articles about Elastic, agentic AI, observability, search, and safe production design."
+>
+  <section class="section">
+    <SectionHeader
+      eyebrow="Articles"
+      title="Canonical long-form pieces"
+      copy="These are the pieces that should rank, be cross-posted, and anchor the newsletter, workshop, and consulting funnel."
+    />
+
+    <div class="grid">
+      {articles.map((article) => (
+        <ArticleCard article={article} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

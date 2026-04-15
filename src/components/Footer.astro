@@ -1,0 +1,40 @@
+---
+import { withBase } from "../lib/utils";
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__grid">
+      <div>
+        <h3>The Elastic Playbook</h3>
+        <p class="meta">
+          Canonical home for the book, the articles, the checklists, and the
+          workshop path around Elastic plus AI.
+        </p>
+      </div>
+
+      <div>
+        <h3>Read next</h3>
+        <p class="meta">
+          Start with the flagship articles, then use the resources pages as the
+          practical follow-through.
+        </p>
+        <a href={withBase("/articles")}>Browse articles</a>
+      </div>
+
+      <div>
+        <h3>Work with me</h3>
+        <p class="meta">
+          Workshops and advisory support for teams building search, observability,
+          and security workflows around AI.
+        </p>
+        <a href={withBase("/workshops")}>See workshop options</a>
+      </div>
+    </div>
+
+    <p class="meta">
+      Built for `bharats.com/elastic-playbook`. If the root domain is hosted
+      elsewhere, use a rewrite or reverse-proxy to mount this app at the path.
+    </p>
+  </div>
+</footer>

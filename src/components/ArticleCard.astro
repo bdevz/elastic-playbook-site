@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate, withBase } from "../lib/utils";
+
+interface Props {
+  article: CollectionEntry<"articles">;
+}
+
+const { article } = Astro.props as Props;
+---
+
+<article class="card">
+  <p class="meta">{formatDate(article.data.published)} · {article.data.keyword}</p>
+  <h3>
+    <a href={withBase(`/articles/${article.id}`)}>{article.data.title}</a>
+  </h3>
+  <p>{article.data.summary}</p>
+  <a href={withBase(`/articles/${article.id}`)}>Read article</a>
+</article>

@@ -1,0 +1,97 @@
+---
+import { getCollection } from "astro:content";
+import ArticleCard from "../components/ArticleCard.astro";
+import CTABox from "../components/CTABox.astro";
+import ResourceCard from "../components/ResourceCard.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { homeHighlights, siteMeta } from "../lib/site";
+import { sortByPublishedDesc, withBase } from "../lib/utils";
+
+const articles = sortByPublishedDesc(
+  await getCollection("articles", ({ data }) => data.featured),
+).slice(0, 3);
+const resources = sortByPublishedDesc(
+  await getCollection("resources", ({ data }) => data.featured),
+).slice(0, 2);
+---
+
+<BaseLayout
+  title={`${siteMeta.title} | Context, observability, and security for agentic AI`}
+  description={siteMeta.description}
+>
+  <section class="hero">
+    <div>
+      <span class="hero__eyebrow">Canonical home</span>
+      <h1>The Elastic book companion that actually earns trust</h1>
+    </div>
+
+    <p>
+      This is the canonical home for the book, the flagship articles, the
+      checklists, and the workshop path around Elastic as the context,
+      observability, and security layer for agentic AI.
+    </p>
+
+    <div class="button-row">
+      <a class="button" href={withBase("/book")}>Explore the book</a>
+      <a class="button-secondary" href={withBase("/articles")}>Read the articles</a>
+    </div>
+
+    <ul class="feature-list">
+      {homeHighlights.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section">
+    <SectionHeader
+      eyebrow="Flagship reading"
+      title="Start with the sharpest current ideas"
+      copy="These are the canonical articles you can share, quote, rank, and build the consulting funnel around."
+    />
+
+    <div class="grid">
+      {articles.map((article) => (
+        <ArticleCard article={article} />
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeader
+      eyebrow="Resources"
+      title="Useful assets, not brochure filler"
+      copy="Every article should hand the reader something practical. These are the first two checklist pages."
+    />
+
+    <div class="grid">
+      {resources.map((resource) => (
+        <ResourceCard resource={resource} />
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid">
+      <div class="panel" style="padding: 1.4rem;">
+        <span class="section__eyebrow">Book thesis</span>
+        <h2>Elastic is not just the search layer anymore.</h2>
+        <p>
+          The core argument of the book is that Elastic in 2026 is becoming the
+          context, retrieval, observability, and security substrate for agentic
+          AI. The site exists to prove that thesis in public, one article and
+          one resource at a time.
+        </p>
+        <a href={withBase("/book")}>See the book page</a>
+      </div>
+
+      <CTABox
+        title="Use the site like a field guide"
+        copy="Read the flagship article, download the checklist, then decide whether your team needs a workshop, architecture review, or just the next chapter."
+        label="See workshop options"
+        href="/workshops"
+      />
+    </div>
+  </section>
+</BaseLayout>

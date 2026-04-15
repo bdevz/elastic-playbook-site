@@ -1,0 +1,43 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import CTABox from "../../components/CTABox.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../lib/utils";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+
+  return articles.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<"articles"> };
+const { Content } = await render(entry);
+const title = `${entry.data.title} | The Elastic Playbook`;
+const description = entry.data.summary;
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="article-shell">
+    <header class="article-header">
+      <p class="meta">
+        {formatDate(entry.data.published)} · {entry.data.keyword}
+      </p>
+      <h1>{entry.data.title}</h1>
+      <p>{entry.data.subtitle}</p>
+    </header>
+
+    <div class="article-prose">
+      <Content />
+    </div>
+
+    <CTABox
+      title="One next step"
+      copy={entry.data.summary}
+      label={entry.data.ctaLabel}
+      href={entry.data.ctaHref}
+    />
+  </article>
+</BaseLayout>

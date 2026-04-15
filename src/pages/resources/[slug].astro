@@ -1,0 +1,41 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import CTABox from "../../components/CTABox.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../lib/utils";
+
+export async function getStaticPaths() {
+  const resources = await getCollection("resources");
+
+  return resources.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<"resources"> };
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`${entry.data.title} | The Elastic Playbook`} description={entry.data.summary}>
+  <article class="resource-shell">
+    <header class="resource-header">
+      <p class="meta">
+        {entry.data.type} · {formatDate(entry.data.published)}
+      </p>
+      <h1>{entry.data.title}</h1>
+      <p>{entry.data.summary}</p>
+    </header>
+
+    <div class="resource-prose">
+      <Content />
+    </div>
+
+    <CTABox
+      title="Use it on one real workflow"
+      copy={entry.data.summary}
+      label={entry.data.ctaLabel}
+      href={entry.data.ctaHref}
+    />
+  </article>
+</BaseLayout>

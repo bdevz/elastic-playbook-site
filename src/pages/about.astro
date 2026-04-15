@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+const bullets = [
+  "Writing from the perspective of architecture, operations, and governance rather than product recap",
+  "Using the book and the site as a public proof layer for real Elastic plus AI patterns",
+  "Aiming for authority, usefulness, and consulting relevance rather than volume publishing",
+];
+---
+
+<BaseLayout
+  title="About | The Elastic Playbook"
+  description="About the author and the purpose behind The Elastic Playbook."
+>
+  <section class="hero">
+    <div>
+      <span class="hero__eyebrow">About</span>
+      <h1>Why this site exists</h1>
+    </div>
+
+    <p>
+      This site is the canonical home for the book and the public writing around
+      it. The goal is to make the argument useful before the manuscript is even
+      finished, and to keep building an owned authority surface after the book
+      is out.
+    </p>
+  </section>
+
+  <section class="section">
+    <SectionHeader
+      eyebrow="Author view"
+      title="A practitioner-first angle"
+      copy="The intent here is not to sound like vendor marketing. It is to write from the place where search, observability, security, and platform design actually meet."
+    />
+
+    <ul class="feature-list">
+      {bullets.map((bullet) => (
+        <li>{bullet}</li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

@@ -1,0 +1,18 @@
+---
+import { withBase } from "../lib/utils";
+
+interface Props {
+  title: string;
+  copy: string;
+  label: string;
+  href: string;
+}
+
+const { title, copy, label, href } = Astro.props as Props;
+---
+
+<aside class="cta-box">
+  <h3>{title}</h3>
+  <p>{copy}</p>
+  <a class="button" href={withBase(href)}>{label}</a>
+</aside>
