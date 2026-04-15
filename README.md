@@ -32,6 +32,9 @@ Recommended Vercel settings when this `site/` directory is its own repository:
 
 If you later keep this inside a larger monorepo, set the Vercel root directory to `site` instead.
 
+This repo also includes a `vercel.json` rewrite rule that strips the `/elastic-playbook`
+prefix before requests hit Astro's built routes.
+
 ## Base path
 
 This site is configured with:
