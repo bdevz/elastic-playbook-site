@@ -988,9 +988,8 @@ pre {
 }
 
 @media (max-width: 540px) {
-  .topbar__nav a:nth-child(2),
-  .topbar__nav a:nth-child(3),
-  .topbar__nav a:nth-child(4) {
+  .topbar__nav a:nth-child(4),
+  .topbar__nav a:nth-child(5) {
     display: none;
   }
 

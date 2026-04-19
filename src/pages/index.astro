@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { bookMeta, siteMeta } from "../lib/site";
+import { awardMeta, bookMeta, recognitionLinks, siteMeta } from "../lib/site";
 import { bookPath, sortByPublishedDesc } from "../lib/utils";
 import Plate from "../components/Plate.astro";
 import SectionHead from "../components/SectionHead.astro";
@@ -47,6 +47,15 @@ const sitePaths = [
     glyphStyle: "teal" as const,
   },
   {
+    title: "Recognition gallery",
+    copy:
+      "A public record of the Elastic award, press coverage, event photos, and community work.",
+    href: "/gallery",
+    aside: "/gallery",
+    glyph: "GL",
+    glyphStyle: "copper" as const,
+  },
+  {
     title: "Flagship articles",
     copy:
       "The long-form pieces meant to rank, be shared, and sharpen the argument in public.",
@@ -62,15 +71,6 @@ const sitePaths = [
     href: bookPath("/resources"),
     aside: `${resources.length} live`,
     glyph: "RS",
-    glyphStyle: "copper" as const,
-  },
-  {
-    title: "Project repository",
-    copy:
-      "The Astro codebase behind the site, useful for readers who want to inspect or reuse the structure.",
-    href: "https://github.com/bdevz/elastic-playbook-site",
-    aside: "GitHub",
-    glyph: "GH",
     glyphStyle: "default" as const,
   },
 ];
@@ -80,7 +80,7 @@ const sitePaths = [
   title={`${siteMeta.title} | Elastic, AI, and enterprise platform work`}
   description={siteMeta.description}
   section="Field notes"
-  ticks={["01", "02", "03", "04", "05", "06"]}
+  ticks={["01", "02", "03", "04", "05", "06", "07"]}
 >
   <section class="hero" id="top">
     <div class="hero__banner" aria-hidden="true">
@@ -155,10 +155,11 @@ const sitePaths = [
       <div class="hero__role">Elastic, AI, and enterprise platform systems</div>
 
       <p class="hero__bio">
-        This is the home for my writing, workshop offers, and architecture work.
-        The flagship project is <em>{bookMeta.title}</em>, a field guide for using
-        Elastic as the context, retrieval, observability, and security layer for
-        agentic AI.
+        This is the home for my writing, field notes, and architecture work
+        around Elastic, AI, search, observability, and secure production
+        systems. The flagship project is <em>{bookMeta.title}</em>, a field guide
+        for using Elastic as the context, retrieval, observability, and security
+        layer for agentic AI.
       </p>
 
       <div class="hero__meta">
@@ -237,8 +238,51 @@ const sitePaths = [
     </div>
   </Plate>
 
+  <Plate id="recognition">
+    <SectionHead num="04" title="News and recognition" meta="Public record" />
+    <div class="section-rule"></div>
+    <div class="section-body">
+      <div class="grid">
+        <article class="card">
+          <p class="meta">Recognition</p>
+          <h3>{awardMeta.title}</h3>
+          <p>
+            Recognized by Elastic for technical excellence, community
+            contribution, and production-grade Elastic work. The gallery keeps
+            the official sources, external coverage, and field photos in one
+            place.
+          </p>
+          <Button href="/gallery">Open the gallery</Button>
+        </article>
+        <article class="card">
+          <p class="meta">Source trail</p>
+          <div class="rows">
+            {recognitionLinks.map((link, index) => (
+              <Row
+                href={link.href}
+                title={link.title}
+                sub={link.summary}
+                aside={link.source}
+                glyph={index === 0 ? "EL" : index === 1 ? "BW" : index === 2 ? "HF" : "TB"}
+                glyphStyle={
+                  index === 0
+                    ? "teal"
+                    : index === 1
+                      ? "ink"
+                      : index === 2
+                        ? "copper"
+                        : "default"
+                }
+              />
+            ))}
+          </div>
+        </article>
+      </div>
+    </div>
+  </Plate>
+
   <Plate>
-    <SectionHead num="04" title="Site paths" meta="Field references" />
+    <SectionHead num="05" title="Site paths" meta="Field references" />
     <div class="section-rule"></div>
     <div class="section-body">
       <div class="rows">
@@ -257,7 +301,7 @@ const sitePaths = [
   </Plate>
 
   <Plate id="writing">
-    <SectionHead num="05" title="Recent writing" meta="From the playbook" />
+    <SectionHead num="06" title="Recent writing" meta="From the playbook" />
     <div class="section-rule"></div>
     <div class="section-body">
       <div class="rows">
@@ -281,7 +325,7 @@ const sitePaths = [
   </Plate>
 
   <Plate>
-    <SectionHead num="06" title="How to use this site" meta="A practical path" />
+    <SectionHead num="07" title="How to use this site" meta="A practical path" />
     <div class="section-rule"></div>
     <div class="section-body">
       <div class="grid">
@@ -303,10 +347,11 @@ const sitePaths = [
         </article>
         <article class="card">
           <p class="meta">Step 03</p>
-          <h3>Turn reading into a decision</h3>
+          <h3>Use proof, not posture</h3>
           <p>
-            If the problem is real and time-sensitive, the workshop or review
-            becomes a shortcut to a defensible architecture choice.
+            The gallery, articles, and resources are there to make the public
+            case and the technical case line up before a decision becomes
+            expensive.
           </p>
         </article>
       </div>
