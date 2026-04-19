@@ -1,0 +1,14 @@
+---
+interface Props {
+  ticks?: string[];
+}
+
+const { ticks = [] } = Astro.props as Props;
+---
+
+<aside class="gutter" aria-hidden="true">
+  <div class="tick">/ INDEX</div>
+  {ticks.map((tick, index) => (
+    <div class="tick" style={`margin-top: ${240 + (index % 3) * 40}px`}>/ {tick}</div>
+  ))}
+</aside>

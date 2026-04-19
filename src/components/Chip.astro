@@ -1,0 +1,14 @@
+---
+interface Props {
+  variant?: "default" | "avail" | "loc";
+  dotColor?: string;
+}
+
+const { variant = "default", dotColor } = Astro.props as Props;
+const className = variant === "default" ? "chip" : `chip chip--${variant}`;
+---
+
+<span class={className}>
+  <span class="dot" style={dotColor ? `background: ${dotColor}` : undefined}></span>
+  <slot />
+</span>

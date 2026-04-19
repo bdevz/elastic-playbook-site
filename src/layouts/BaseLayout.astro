@@ -1,24 +1,32 @@
 ---
-import "../styles/global.css";
-import Header from "../components/Header.astro";
+import "../styles/fonts.css";
+import "../styles/system.css";
+import Topbar from "../components/Topbar.astro";
+import Gutter from "../components/Gutter.astro";
 import Footer from "../components/Footer.astro";
 import { siteMeta } from "../lib/site";
 
 interface Props {
   title?: string;
   description?: string;
+  section?: string;
+  ticks?: string[];
 }
 
 const {
   title = siteMeta.title,
   description = siteMeta.description,
+  section,
+  ticks = [],
 } = Astro.props as Props;
 
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).toString()
+  : undefined;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-palette="paper">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,12 +41,48 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString(
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
-    <div class="site-shell">
-      <Header />
-      <main id="content">
-        <slot />
-      </main>
-      <Footer />
-    </div>
+    <Topbar section={section} />
+
+    <main id="content" class="shell">
+      <div class="page">
+        <Gutter ticks={ticks} />
+        <div
+          class="col"
+          style="display: flex; flex-direction: column; gap: 1.25rem; padding-top: 1.25rem;"
+        >
+          <slot />
+          <Footer />
+        </div>
+      </div>
+    </main>
+
+    <script is:inline>
+      (() => {
+        const html = document.documentElement;
+        const paletteButton = document.getElementById("palette-btn");
+        const order = ["paper", "mineral", "ink"];
+        const apply = (palette) => {
+          html.setAttribute("data-palette", palette);
+          try {
+            localStorage.setItem("bs-palette", palette);
+          } catch {}
+        };
+
+        try {
+          const saved = localStorage.getItem("bs-palette");
+          if (saved && order.includes(saved)) {
+            apply(saved);
+          }
+        } catch {}
+
+        if (paletteButton) {
+          paletteButton.addEventListener("click", () => {
+            const current = html.getAttribute("data-palette") || "paper";
+            const next = order[(order.indexOf(current) + 1) % order.length];
+            apply(next);
+          });
+        }
+      })();
+    </script>
   </body>
 </html>

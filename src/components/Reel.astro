@@ -1,0 +1,23 @@
+---
+interface Props {
+  kicker?: string;
+  footLeft?: string;
+  footHref?: string;
+  footLabel?: string;
+}
+
+const { kicker, footLeft, footHref, footLabel } = Astro.props as Props;
+---
+
+<div class="reel">
+  {kicker && <div class="reel__kicker">{kicker}</div>}
+  <div class="reel__title">
+    <slot />
+  </div>
+  {(footLeft || footHref) && (
+    <div class="reel__foot">
+      {footLeft && <span>{footLeft}</span>}
+      {footHref && <a href={footHref}>{footLabel || "Read more →"}</a>}
+    </div>
+  )}
+</div>

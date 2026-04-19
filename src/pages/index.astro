@@ -1,37 +1,77 @@
 ---
 import { getCollection } from "astro:content";
-import ArticleCard from "../components/ArticleCard.astro";
-import CTABox from "../components/CTABox.astro";
-import SectionHeader from "../components/SectionHeader.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { bookMeta, siteMeta } from "../lib/site";
 import { bookPath, sortByPublishedDesc } from "../lib/utils";
+import Plate from "../components/Plate.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Row from "../components/Row.astro";
+import Reel from "../components/Reel.astro";
+import Button from "../components/Button.astro";
+import Chip from "../components/Chip.astro";
 
 const articles = sortByPublishedDesc(
   await getCollection("articles", ({ data }) => data.featured),
+).slice(0, 4);
+
+const resources = sortByPublishedDesc(
+  await getCollection("resources", ({ data }) => data.featured),
 ).slice(0, 2);
 
-const focusAreas = [
-  "Elastic in the AI stack: retrieval, context, observability, and security",
-  "Operator-grade guidance for teams shipping AI systems into production",
-  "Workshops and architecture reviews that turn writing into rollout decisions",
+const workingSessions = [
+  {
+    title: "Elastic + AI architecture review",
+    copy:
+      "A focused review for teams deciding where Elastic should sit in the AI stack and which boundaries belong in the platform versus the application.",
+  },
+  {
+    title: "Agentic search design workshop",
+    copy:
+      "A working session around retrieval, tool use, refusal behavior, and review boundaries for search-first agent workflows.",
+  },
+  {
+    title: "LLM observability and operator review",
+    copy:
+      "A workshop for teams that need prompt lineage, traceability, cost visibility, and a replayable incident path before scaling production AI workflows.",
+  },
 ];
 
-const proofPoints = [
+const sitePaths = [
   {
-    title: "What I write",
+    title: "The Elastic Playbook",
     copy:
-      "Long-form technical writing aimed at enterprise teams making architecture decisions, not chasing demos.",
+      "The canonical home for the book, the thesis, and the supporting articles and resources.",
+    href: bookPath("/"),
+    aside: "/elastic-playbook",
+    glyph: "EP",
+    glyphStyle: "teal" as const,
   },
   {
-    title: "What I help with",
+    title: "Flagship articles",
     copy:
-      "Architecture reviews, agentic-search design, LLM observability, and safer workflow boundaries around Elastic plus AI.",
+      "The long-form pieces meant to rank, be shared, and sharpen the argument in public.",
+    href: bookPath("/articles"),
+    aside: `${articles.length} live`,
+    glyph: "AR",
+    glyphStyle: "ink" as const,
   },
   {
-    title: "What this site is",
+    title: "Practical resources",
     copy:
-      "A simple home for my work, with The Elastic Playbook as the flagship publishing and consulting surface.",
+      "Checklists and review assets built to help a team pressure-test one production decision at a time.",
+    href: bookPath("/resources"),
+    aside: `${resources.length} live`,
+    glyph: "RS",
+    glyphStyle: "copper" as const,
+  },
+  {
+    title: "Project repository",
+    copy:
+      "The Astro codebase behind the site, useful for readers who want to inspect or reuse the structure.",
+    href: "https://github.com/bdevz/elastic-playbook-site",
+    aside: "GitHub",
+    glyph: "GH",
+    glyphStyle: "default" as const,
   },
 ];
 ---
@@ -39,82 +79,237 @@ const proofPoints = [
 <BaseLayout
   title={`${siteMeta.title} | Elastic, AI, and enterprise platform work`}
   description={siteMeta.description}
+  section="Field notes"
+  ticks={["01", "02", "03", "04", "05", "06"]}
 >
-  <section class="hero">
-    <div>
-      <span class="hero__eyebrow">Elastic, AI, and platform systems</span>
-      <h1>Bharat writes and works where search, observability, and AI architecture meet</h1>
+  <section class="hero" id="top">
+    <div class="hero__banner" aria-hidden="true">
+      <svg viewBox="0 0 1200 360" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="field-bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e9e0cc"></stop>
+            <stop offset="1" stop-color="#d9cfb7"></stop>
+          </linearGradient>
+          <pattern
+            id="field-hatch"
+            width="6"
+            height="6"
+            patternUnits="userSpaceOnUse"
+            patternTransform="rotate(30)"
+          >
+            <line
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="6"
+              stroke="#14202a"
+              stroke-opacity="0.06"
+              stroke-width="1"
+            ></line>
+          </pattern>
+        </defs>
+        <rect width="1200" height="360" fill="url(#field-bg)"></rect>
+        <rect width="1200" height="360" fill="url(#field-hatch)"></rect>
+        <g fill="none" stroke="#14202a" stroke-opacity="0.22" stroke-width="1">
+          <path d="M0,120 C200,80 400,160 600,130 S1000,90 1200,140"></path>
+          <path d="M0,160 C220,120 420,200 620,170 S1020,130 1200,180"></path>
+          <path d="M0,200 C240,160 440,240 640,210 S1040,170 1200,220"></path>
+          <path d="M0,240 C260,200 460,280 660,250 S1060,210 1200,260"></path>
+        </g>
+        <g fill="none" stroke="#8b5a2b" stroke-opacity="0.5" stroke-width="1.2">
+          <path d="M0,180 C240,140 440,220 640,190 S1040,150 1200,200"></path>
+        </g>
+        <g
+          font-family="JetBrains Mono, monospace"
+          font-size="10"
+          fill="#14202a"
+          fill-opacity="0.55"
+          letter-spacing="1.5"
+        >
+          <text x="56" y="40">FIG. 0.1 — FIELD OF OPERATION</text>
+          <text x="56" y="340">SEARCH · OBSERVE · SECURE · ORCHESTRATE</text>
+          <text x="1144" y="40" text-anchor="end">VOL. 01</text>
+          <text x="1144" y="340" text-anchor="end">REV. 2026-Q2</text>
+        </g>
+      </svg>
     </div>
 
-    <p>
-      This is the home site for my writing, workshop offers, and architecture
-      work. The main project here is <em>{bookMeta.title}</em>, a book and
-      companion site about using Elastic as the context, observability, and
-      security layer for agentic AI.
-    </p>
+    <div class="hero__body">
+      <div class="hero__avatar" aria-hidden="true">B</div>
 
-    <div class="button-row">
-      <a class="button" href={bookPath("/")}>Explore the playbook</a>
-      <a class="button-secondary" href={bookPath("/workshops")}>See workshop options</a>
-    </div>
-
-    <ul class="feature-list">
-      {focusAreas.map((item) => (
-        <li>{item}</li>
-      ))}
-    </ul>
-  </section>
-
-  <section class="section">
-    <SectionHeader
-      eyebrow="Profile"
-      title="A practitioner-first home page"
-      copy="The root site stays intentionally simple. It should tell people what I do, what the flagship work is, and where to go next."
-    />
-
-    <div class="grid">
-      {proofPoints.map((item) => (
-        <article class="card">
-          <h3>{item.title}</h3>
-          <p>{item.copy}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
-    <SectionHeader
-      eyebrow="Selected writing"
-      title="Start with the public proof layer"
-      copy="These are the first two flagship articles from The Elastic Playbook. They do the heavy lifting for search discovery, trust, and consulting relevance."
-    />
-
-    <div class="grid">
-      {articles.map((article) => (
-        <ArticleCard article={article} />
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="grid">
-      <div class="panel" style="padding: 1.4rem;">
-        <span class="section__eyebrow">Flagship project</span>
-        <h2>{bookMeta.title}</h2>
-        <p>
-          The book argues that Elastic in 2026 is no longer just search
-          infrastructure. It is becoming the context, retrieval,
-          observability, and security substrate for agentic AI.
-        </p>
-        <a href={bookPath("/")}>See the playbook</a>
+      <div class="hero__socials" aria-label="Elsewhere">
+        <a href="https://github.com/bdevz/elastic-playbook-site" aria-label="GitHub">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.5a3 3 0 0 0-.8-2.2c2.8-.3 5.8-1.4 5.8-6.3a4.8 4.8 0 0 0-1.4-3.4 4.5 4.5 0 0 0-.1-3.3S18.8 2 15.6 4a13.5 13.5 0 0 0-7 0C5.2 2 4 2.3 4 2.3a4.5 4.5 0 0 0-.1 3.3A4.8 4.8 0 0 0 2.5 9c0 4.9 3 6 5.8 6.3a3 3 0 0 0-.8 2.2V22"></path>
+          </svg>
+        </a>
+        <a href="mailto:hi@bharats.com" aria-label="Email">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 6h18v12H3z"></path>
+            <path d="M3 6l9 7 9-7"></path>
+          </svg>
+        </a>
       </div>
 
-      <CTABox
-        title="Turn the writing into a working session"
-        copy="If the architecture problem is real and time-sensitive, the playbook becomes the starting point for a workshop or platform review."
-        label="Open the workshops page"
-        href="/workshops"
-      />
+      <h1 class="hero__name">{siteMeta.title}</h1>
+      <div class="hero__role">Elastic, AI, and enterprise platform systems</div>
+
+      <p class="hero__bio">
+        This is the home for my writing, workshop offers, and architecture work.
+        The flagship project is <em>{bookMeta.title}</em>, a field guide for using
+        Elastic as the context, retrieval, observability, and security layer for
+        agentic AI.
+      </p>
+
+      <div class="hero__meta">
+        <Chip variant="loc" dotColor="var(--copper)">Remote · ET</Chip>
+        <Chip variant="avail">Open to architecture and workshop conversations</Chip>
+      </div>
     </div>
   </section>
+
+  <Plate>
+    <SectionHead num="01" title="Featured" meta="Flagship and advisory" />
+    <div class="section-rule"></div>
+    <div class="section-body">
+      <div class="grid">
+        <article class="card">
+          <p class="meta">Flagship project</p>
+          <h3>{bookMeta.title}</h3>
+          <p>
+            The field guide for turning Elastic into the context, observability,
+            and security layer for agentic AI.
+          </p>
+          <Button href={bookPath("/")}>Explore the playbook</Button>
+        </article>
+        <article class="card">
+          <p class="meta">Working sessions</p>
+          <h3>Workshops and architecture reviews</h3>
+          <p>
+            Use the book and flagship articles as the precursor to a real
+            architecture review, design workshop, or platform decision.
+          </p>
+          <Button variant="ghost" href={bookPath("/workshops")}
+            >See workshop options</Button
+          >
+        </article>
+      </div>
+    </div>
+  </Plate>
+
+  <Plate id="workshops">
+    <SectionHead num="02" title="Working sessions" meta="Operator-grade" />
+    <div class="section-rule"></div>
+    <div class="section-body">
+      <div class="rows">
+        {workingSessions.map((session, index) => (
+          <Row
+            title={session.title}
+            sub={session.copy}
+            aside={index === 0 ? "Review" : index === 1 ? "Workshop" : "Observability"}
+            glyph={index === 0 ? "AR" : index === 1 ? "WS" : "OT"}
+            glyphStyle={index === 0 ? "teal" : index === 1 ? "ink" : "copper"}
+          />
+        ))}
+      </div>
+      <div style="margin-top: 20px;">
+        <Button href={bookPath("/workshops")} full={true}
+          >Open the workshops page</Button
+        >
+      </div>
+    </div>
+  </Plate>
+
+  <Plate>
+    <SectionHead num="03" title="Core thesis" meta="The argument in one card" />
+    <div class="section-rule"></div>
+    <div class="section-body">
+      <Reel
+        kicker="Opening thesis"
+        footLeft="The Elastic Playbook"
+        footHref={bookPath("/book")}
+        footLabel="See the book page →"
+      >
+        Elastic in 2026 is no longer just search infrastructure. It is becoming
+        the <em>context, retrieval, observability, and security substrate</em> for
+        agentic AI.
+      </Reel>
+    </div>
+  </Plate>
+
+  <Plate>
+    <SectionHead num="04" title="Site paths" meta="Field references" />
+    <div class="section-rule"></div>
+    <div class="section-body">
+      <div class="rows">
+        {sitePaths.map((path) => (
+          <Row
+            href={path.href}
+            title={path.title}
+            sub={path.copy}
+            aside={path.aside}
+            glyph={path.glyph}
+            glyphStyle={path.glyphStyle}
+          />
+        ))}
+      </div>
+    </div>
+  </Plate>
+
+  <Plate id="writing">
+    <SectionHead num="05" title="Recent writing" meta="From the playbook" />
+    <div class="section-rule"></div>
+    <div class="section-body">
+      <div class="rows">
+        {articles.map((article) => (
+          <Row
+            href={bookPath(`/articles/${article.id}`)}
+            title={article.data.title}
+            sub={article.data.summary}
+            aside={article.data.published}
+            glyph={article.data.keyword.slice(0, 2).toUpperCase()}
+            glyphStyle="default"
+          />
+        ))}
+      </div>
+      <div style="margin-top: 20px;">
+        <Button variant="ghost" href={bookPath("/articles")} full={true}
+          >Browse all articles</Button
+        >
+      </div>
+    </div>
+  </Plate>
+
+  <Plate>
+    <SectionHead num="06" title="How to use this site" meta="A practical path" />
+    <div class="section-rule"></div>
+    <div class="section-body">
+      <div class="grid">
+        <article class="card">
+          <p class="meta">Step 01</p>
+          <h3>Start with the thesis</h3>
+          <p>
+            Use the book companion and the core article set to understand the
+            platform argument before you chase implementation detail.
+          </p>
+        </article>
+        <article class="card">
+          <p class="meta">Step 02</p>
+          <h3>Use one resource on one real system</h3>
+          <p>
+            The checklists are meant to be applied to a live workflow, trace
+            path, or design review, not saved for later.
+          </p>
+        </article>
+        <article class="card">
+          <p class="meta">Step 03</p>
+          <h3>Turn reading into a decision</h3>
+          <p>
+            If the problem is real and time-sensitive, the workshop or review
+            becomes a shortcut to a defensible architecture choice.
+          </p>
+        </article>
+      </div>
+    </div>
+  </Plate>
 </BaseLayout>

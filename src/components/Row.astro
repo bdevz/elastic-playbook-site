@@ -1,0 +1,31 @@
+---
+interface Props {
+  href?: string;
+  title: string;
+  sub?: string;
+  aside?: string;
+  glyph?: string;
+  glyphStyle?: "default" | "teal" | "ink" | "copper";
+}
+
+const {
+  href,
+  title,
+  sub,
+  aside,
+  glyph,
+  glyphStyle = "default",
+} = Astro.props as Props;
+const glyphClass =
+  glyphStyle === "default" ? "row__glyph" : `row__glyph row__glyph--${glyphStyle}`;
+const Tag = href ? "a" : "div";
+---
+
+<Tag class="row" href={href}>
+  {glyph && <div class={glyphClass}>{glyph}</div>}
+  <div>
+    <div class="row__title">{title}</div>
+    {sub && <div class="row__sub">{sub}</div>}
+  </div>
+  {aside && <div class="row__aside">{aside}</div>}
+</Tag>

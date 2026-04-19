@@ -2,39 +2,27 @@
 import { bookPath } from "../lib/utils";
 ---
 
-<footer class="site-footer">
-  <div class="site-footer__inner">
-    <div class="site-footer__grid">
-      <div>
-        <h3>Bharat</h3>
-        <p class="meta">
-          Writing, workshops, and architecture guidance around Elastic, AI,
-          search, observability, and production-grade systems.
-        </p>
-      </div>
-
-      <div>
-        <h3>The Elastic Playbook</h3>
-        <p class="meta">
-          The canonical home for the book, the flagship articles, and the
-          checklists that support workshop and consulting conversations.
-        </p>
-        <a href={bookPath("/articles")}>Browse articles</a>
-      </div>
-
-      <div>
-        <h3>Current focus</h3>
-        <p class="meta">
-          Helping teams make better decisions about retrieval, observability,
-          AI workflows, and safe production boundaries.
-        </p>
-        <a href={bookPath("/workshops")}>See workshop options</a>
-      </div>
-    </div>
-
-    <p class="meta">
-      `bharats.com` is the root site. `bharats.com/elastic-playbook` is the
-      book companion and publishing surface.
-    </p>
+<footer class="foot">
+  <div>
+    <h5>Site</h5>
+    <a href="/">Home</a>
+    <a href={bookPath("/")}>The Elastic Playbook</a>
+    <a href={bookPath("/workshops")}>Workshops</a>
+  </div>
+  <div>
+    <h5>Playbook</h5>
+    <a href={bookPath("/")}>Overview</a>
+    <a href={bookPath("/book")}>Book</a>
+    <a href={bookPath("/articles")}>Articles</a>
+    <a href={bookPath("/resources")}>Resources</a>
+  </div>
+  <div>
+    <h5>Elsewhere</h5>
+    <a href="https://github.com/bdevz/elastic-playbook-site">GitHub</a>
+    <a href="mailto:hi@bharats.com">Email</a>
+  </div>
+  <div class="foot__colophon">
+    <span>© 2026 Bharat · bharats.com</span>
+    <span>Set in Fraunces &amp; Inter Tight · Built on Astro</span>
   </div>
 </footer>
