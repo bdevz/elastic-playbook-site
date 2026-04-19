@@ -1,7 +1,7 @@
 export const siteMeta = {
-  title: "Bharat",
+  title: "BK Bhate",
   description:
-    "Bharat's home on the web for Elastic, AI, search, observability, and enterprise platform work.",
+    "BK Bhate's home on the web for Elastic, AI, search, observability, and enterprise platform work.",
 };
 
 export const bookMeta = {
